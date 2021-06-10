@@ -11,8 +11,7 @@ export const getAllCoins =
     });
     try {
       const response = await axios.get(
-        `https://api.coinranking.com/v2/coins?limit=100&referenceCurrencyUuid=${countryId}`,
-        headersOptions()
+        `https://api.coinranking.com/v2/coins?limit=100&referenceCurrencyUuid=${countryId}`
       );
       dispatch({
         type: actionTypes.GET_ALL_COINS_DATA_SUCCESS,
@@ -34,8 +33,7 @@ export const getAllCurrencies =
     });
     try {
       const response = await axios.get(
-        `https://api.coinranking.com/v2/reference-currencies?types[]=fiat&limit=20`,
-        headersOptions()
+        `https://api.coinranking.com/v2/reference-currencies?types[]=fiat&limit=20`
       );
       dispatch({
         type: actionTypes.GET_ALL_CURRIENCES_SUCCESS,

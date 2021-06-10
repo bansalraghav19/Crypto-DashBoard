@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as actionTypes from "./actionType";
 import { Dispatch } from "react";
-import { headersOptions } from "../../utils/headers";
 
 export const getCoinDataById =
   (uuid: string, countryId: string = "6mUvpzCc2lFo") =>
@@ -11,8 +10,7 @@ export const getCoinDataById =
     });
     try {
       const response = await axios.get(
-        `https://api.coinranking.com/v2/coin/${uuid}?referenceCurrencyUuid=${countryId}`,
-        headersOptions()
+        `https://api.coinranking.com/v2/coin/${uuid}?referenceCurrencyUuid=${countryId}`
       );
       dispatch({
         type: actionTypes.GET_COIN_DATA_SUCCESS,
@@ -35,8 +33,7 @@ export const getCoinMarkets =
     });
     try {
       const response = await axios.get(
-        `https://api.coinranking.com/v2/coin/${uuid}/markets?referenceCurrencyUuid=${countryId}`,
-        headersOptions()
+        `https://api.coinranking.com/v2/coin/${uuid}/markets?referenceCurrencyUuid=${countryId}`
       );
       dispatch({
         type: actionTypes.GET_COIN_MARKETS_SUCCESS,
