@@ -36,9 +36,9 @@ class App extends Component<PropsI, StateI> {
     });
   };
 
-  getDefaultCurrency = async (array: any) => {
-    const defaultInr = array.find((cur: any) => cur?.symbol === "INR");
-    await this.props.getSelectedCurrency(defaultInr);
+  getDefaultCurrency = async (currencies: any) => {
+    const defaultInr = currencies?.find((cur: any) => cur?.symbol === "INR");
+    if (defaultInr) await this.props.getSelectedCurrency(defaultInr);
   };
 
   fetchAllCurrencies = async () => {
@@ -48,17 +48,20 @@ class App extends Component<PropsI, StateI> {
       this.getDefaultCurrency(JSON.parse(storedValue)?.data?.currencies);
     } else {
       await this.props.getAllCurrencies();
-      localStorage.setItem(
-        "allCurrencies",
-        JSON.stringify({
-          data: {
-            currencies: this?.props?.getAllCurrenciesData?.data?.currencies,
-          },
-        })
-      );
-      this.getDefaultCurrency(
-        this?.props?.getAllCurrenciesData?.data?.currencies
-      );
+      if (!this?.props?.getAllCurrenciesData?.error) {
+        localStorage.setItem(
+          "allCurrencies",
+          JSON.stringify({
+            data: {
+              currencies:
+                this?.props?.getAllCurrenciesData?.data?.data?.currencies,
+            },
+          })
+        );
+        this.getDefaultCurrency(
+          this?.props?.getAllCurrenciesData?.data?.currencies
+        );
+      }
     }
   };
 
@@ -93,7 +96,7 @@ class App extends Component<PropsI, StateI> {
 }
 
 const mapStateToProps = (store: StoreInterface) => ({
-  getAllCurrenciesData: store.homePage.getAllCurrencies.data,
+  getAllCurrenciesData: store.homePage.getAllCurrencies,
 });
 
 export default connect(mapStateToProps, {

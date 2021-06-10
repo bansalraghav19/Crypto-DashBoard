@@ -94,7 +94,9 @@ const CustomSelect: React.FC<Props> = ({
           />
         )}
         <span className="cs55sym mr-5">{currentCurrency?.symbol || ""}</span>
-        <span className="cs55sym mr-auto">({currentCurrency?.sign})</span>
+        {currentCurrency?.sign && (
+          <span className="cs55sym mr-auto">({currentCurrency?.sign})</span>
+        )}
       </span>
       <ul ref={listConatinerRef} className="cs55selectOptionsContainer">
         {dataList.map((data) =>

@@ -48,7 +48,7 @@ const CardWrapper = (props: any) => {
       {cardsData?.map((card, index) =>
         props?.dataList?.[card.key] ? (
           <Card
-            key={card.key}
+            key={card?.key}
             background={colors[index % colors.length].background}
             color={colors[index % colors.length].color}
             heading={card.name}
@@ -57,7 +57,7 @@ const CardWrapper = (props: any) => {
             currencySign={props?.getSelectedCurrencydata?.data?.sign}
           />
         ) : (
-          <span></span>
+          <span key={card?.key}></span>
         )
       )}
     </div>
