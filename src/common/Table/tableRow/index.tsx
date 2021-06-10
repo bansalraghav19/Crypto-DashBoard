@@ -1,20 +1,16 @@
 import React, { memo } from "react";
 import { useHistory } from "react-router-dom";
+import { tableColumnI } from "../index";
 import Cell from "./Cell";
-
-interface field {
-  key: string;
-  name: string;
-}
 
 interface PropsI {
   tableData: any;
-  fields: field[];
+  dataColumns: tableColumnI[];
   clickable: boolean;
 }
 
 const TableRow: React.FC<PropsI> = (props) => {
-  const { tableData, fields, clickable } = props;
+  const { tableData, dataColumns, clickable } = props;
   const history = useHistory();
 
   const handleRedirect = (uuid: string) => {
@@ -29,10 +25,10 @@ const TableRow: React.FC<PropsI> = (props) => {
           className="tc1Row"
           key={row?.uuid}
         >
-          {fields?.map((field: field, index: number) => (
+          {dataColumns?.map((field: tableColumnI, index: number) => (
             <td className="tc1RowData" key={index}>
               <div className="tc1RowDataBox">
-                <Cell field={field?.key} row={row} />
+                <Cell column={field} row={row} />
               </div>
             </td>
           ))}

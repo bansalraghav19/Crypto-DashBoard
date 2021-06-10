@@ -1,5 +1,5 @@
 import React, { Component, lazy, Suspense } from "react";
-import { coinPageFields, CACHE_TIME } from "../../utils/contansts";
+import { CACHE_TIME } from "../../utils/contansts";
 import { scrollToTop } from "../../utils/commonFunctions";
 import { RouteComponentProps, withRouter } from "react-router";
 import { connect } from "react-redux";
@@ -7,6 +7,7 @@ import { getCoinDataById, getCoinMarkets } from "../../storage/CoinPage/action";
 import { StoreInterface } from "../../storage/store";
 import "./style.css";
 import { LazyImport } from "../../utils/lazyImport";
+import { coinPageTableColumns } from "../../utils/tableData";
 
 const Header = lazy(() => LazyImport(import("../../common/header/index")));
 const CoinDashBoard = lazy(() =>
@@ -145,7 +146,7 @@ class CoinPage extends Component<
         </Suspense>
         <Suspense fallback={<div></div>}>
           <Table
-            fields={coinPageFields}
+            dataColumns={coinPageTableColumns}
             data={this?.state?.coinMarketData?.markets || []}
           />
         </Suspense>

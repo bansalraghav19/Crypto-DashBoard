@@ -2,72 +2,54 @@ import React, { memo, useCallback, useEffect, useState } from "react";
 import TableHeader from "./tableHead";
 import TableRow from "./tableRow/index";
 import "./style.css";
-import {
-  HomePageTableInterface,
-  CoinPageTableInterface,
-} from "../../utils/dataInterfaces";
 
-interface PropsI<T> {
-  fields: {
-    name: string;
-    key: string;
-  }[];
-  clickable: boolean;
-  data: T[];
+export interface tableColumnI {
+  key: string;
+  name: string;
+  render: (row: any, currency?: string) => JSX.Element;
+  sortingFunction: (
+    initialArray: any[],
+    fieldName: string,
+    increasing: boolean
+  ) => any[];
 }
 
-const Table = <T extends HomePageTableInterface | CoinPageTableInterface>(
-  props: PropsI<T>
-) => {
-  const [tableData, setTableData] = useState<T[]>([]);
+interface PropsI {
+  dataColumns: tableColumnI[];
+  clickable: boolean;
+  data: any;
+}
+
+const Table: React.FC<PropsI> = (props) => {
+  const [tableData, setTableData] = useState<any>([]);
   const [curSortingParameter, setCurSortingParameter] = useState("");
   const [isAscendingSort, setIsAscendingSort] = useState(true);
 
-  const { fields, data, clickable } = props;
+  const { dataColumns, data, clickable } = props;
 
   useEffect(() => {
     setTableData(data || []);
   }, [props.data]);
 
   const handleSort = useCallback(
-    (field: string) => {
+    (field: tableColumnI) => {
       let isIncreasing: boolean = true;
-      if (field === curSortingParameter) {
+      if (field?.key === curSortingParameter) {
         isIncreasing = !isAscendingSort;
         setIsAscendingSort((prevState) => !prevState);
       } else {
-        setCurSortingParameter(field);
+        setCurSortingParameter(field?.key);
         setIsAscendingSort(true);
       }
-      let sortedData = [...(data || [])];
-      if (field === "name") {
-        sortedData.sort((a, b) =>
-          isIncreasing
-            ? a[field].localeCompare(b[field])
-            : b[field].localeCompare(a[field])
-        );
-      } else if (field === "source") {
-        sortedData.sort((a, b) =>
-          isIncreasing
-            ? a?.exchange?.name.localeCompare(b?.exchange?.name)
-            : b?.exchange?.name.localeCompare(a?.exchange?.name)
-        );
-      } else if (field === "pairs") {
-        sortedData.sort((a, b) => {
-          const stringA: string = `${a?.base?.symbol}${a?.quote?.symbol}`;
-          const stringB: string = `${b?.base?.symbol}${b?.quote?.symbol}`;
-          return isIncreasing
-            ? stringA.localeCompare(stringB)
-            : stringB.localeCompare(stringA);
-        });
-      } else {
-        sortedData.sort(
-          (a, b) => (a[field] - b[field]) * (isIncreasing ? 1 : -1)
-        );
-      }
+      const sortedData = field?.sortingFunction(
+        tableData,
+        field?.key,
+        isIncreasing
+      );
+      console.log(sortedData);
       setTableData(sortedData);
     },
-    [curSortingParameter, isAscendingSort, data]
+    [curSortingParameter, isAscendingSort, tableData]
   );
 
   return (
@@ -75,13 +57,17 @@ const Table = <T extends HomePageTableInterface | CoinPageTableInterface>(
       <table className="tc1Table">
         {tableData?.length > 0 && (
           <TableHeader
-            fields={fields}
+            dataColumns={dataColumns}
             curSortingParameter={curSortingParameter}
             isAscendingSort={isAscendingSort}
             handleSort={handleSort}
           />
         )}
-        <TableRow fields={fields} tableData={tableData} clickable={clickable} />
+        <TableRow
+          dataColumns={dataColumns}
+          tableData={tableData}
+          clickable={clickable}
+        />
       </table>
     </div>
   );

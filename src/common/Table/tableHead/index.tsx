@@ -1,21 +1,14 @@
 import React, { memo } from "react";
-
-interface field {
-  key: string;
-  name: string;
-}
+import { tableColumnI } from "../index";
 
 const TableHeader = (props: any) => {
-  const { fields, handleSort, curSortingParameter, isAscendingSort } = props;
+  const { dataColumns, handleSort, curSortingParameter, isAscendingSort } =
+    props;
   return (
     <thead>
-      {fields?.map((field: field, index: number) => (
-        <th
-          onClick={() => handleSort(field?.key)}
-          className="tc1Header"
-          key={index}
-        >
-          <span>{field.name}</span>
+      {dataColumns?.map((field: tableColumnI, index: number) => (
+        <th onClick={() => handleSort(field)} className="tc1Header" key={index}>
+          <span>{field?.name}</span>
           {curSortingParameter === field.key &&
             (isAscendingSort ? (
               <i className="ml-10 fas fa-sort-amount-up"></i>

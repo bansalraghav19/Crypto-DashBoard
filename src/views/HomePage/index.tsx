@@ -1,6 +1,7 @@
 import React, { Component, lazy, Suspense } from "react";
 import { connect } from "react-redux";
-import { HomePageFields, CACHE_TIME } from "../../utils/contansts";
+import { CACHE_TIME } from "../../utils/contansts";
+import { homePageTableColumns } from "../../utils/tableData/index";
 import { scrollToTop } from "../../utils/commonFunctions";
 import { LazyImport } from "../../utils/lazyImport";
 import { getAllCoins } from "../../storage/HomePage/action";
@@ -107,7 +108,7 @@ class HomePage extends Component<PropsI, StateI> {
         </Suspense>
         <Suspense fallback={<div></div>}>
           <Table
-            fields={HomePageFields}
+            dataColumns={homePageTableColumns}
             data={this?.state?.coinsData?.coins || []}
             clickable={true}
           />
