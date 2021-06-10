@@ -114,7 +114,7 @@ const CustomSelect: React.FC<Props> = ({
               <span className="cs55sym">({data?.sign})</span>
             </li>
           ) : (
-            <span></span>
+            <span key={data?.uuid}></span>
           )
         )}
       </ul>

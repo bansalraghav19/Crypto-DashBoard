@@ -62,7 +62,6 @@ export const getAllCachedCurrencies =
 export const getSelectedCurrency =
   (data: any) =>
   async (dispatch: Dispatch<actionTypes.getSelectedCurrencyPayloadType>) => {
-    console.log(data);
     dispatch({
       type: actionTypes.GET_SELECTED_CURRENCY_SUCCESS,
       payload: {

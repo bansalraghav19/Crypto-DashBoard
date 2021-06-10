@@ -16,7 +16,6 @@ const Table = (props: any) => {
 
   const handleSort = useCallback(
     (field: string) => {
-      console.log(field);
       let isIncreasing: boolean = true;
       if (field === curSortingParameter) {
         isIncreasing = !isAscendingSort;

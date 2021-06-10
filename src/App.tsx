@@ -59,7 +59,7 @@ class App extends Component<PropsI, StateI> {
           })
         );
         this.getDefaultCurrency(
-          this?.props?.getAllCurrenciesData?.data?.currencies
+          this?.props?.getAllCurrenciesData?.data?.data?.currencies
         );
       }
     }
