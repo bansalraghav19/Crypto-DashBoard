@@ -1,7 +1,7 @@
 import React, { Component, lazy, Suspense } from "react";
 import { coinPageFields, CACHE_TIME } from "../../utils/contansts";
 import { scrollToTop } from "../../utils/commonFunctions";
-import { withRouter } from "react-router";
+import { RouteComponentProps, withRouter } from "react-router";
 import { connect } from "react-redux";
 import { getCoinDataById, getCoinMarkets } from "../../storage/CoinPage/action";
 import { StoreInterface } from "../../storage/store";
@@ -17,7 +17,31 @@ const ErrorPage = lazy(() =>
   LazyImport(import("../../common/errorPage/index"))
 );
 
-class CoinPage extends Component<any, any> {
+type PathParamsType = {
+  coinId: string;
+};
+
+interface PropsI {
+  getCoinByIdData: any;
+  getCoinMarketData: any;
+  getCoinDataById: any;
+  getCoinMarkets: any;
+  getSelectedCurrencyData: any;
+  isNightMode: boolean;
+  setIsNightMode: () => void;
+  [key: string]: any;
+}
+
+interface StateI {
+  coinData: any;
+  coinMarketData: any;
+  showErrorMessage: boolean;
+}
+
+class CoinPage extends Component<
+  PropsI & RouteComponentProps<PathParamsType>,
+  StateI
+> {
   constructor(props: any) {
     super(props);
     this.state = {

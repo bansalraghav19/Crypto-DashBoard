@@ -3,12 +3,13 @@ import { connect } from "react-redux";
 import { numberToWords } from "../../../utils/commonFunctions";
 import { StoreInterface } from "../../../storage/store";
 
-interface field {
-  key: string;
-  name: string;
+interface PropsI {
+  getSelectedCurrencydata: any;
+  field: string;
+  row: any;
 }
 
-const Cell = (props: any) => {
+const Cell: React.FC<PropsI> = (props) => {
   const { field, row, getSelectedCurrencydata } = props;
 
   const getFieldValue = (field: string, row: any) => {

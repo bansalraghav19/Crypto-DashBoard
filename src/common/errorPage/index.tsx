@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ErrorPage = (props: any) => {
+const ErrorPage = () => {
   return (
     <div style={styles}>
       <p>Coin Not Found</p>

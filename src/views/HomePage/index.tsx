@@ -14,7 +14,20 @@ const SearchBar = lazy(() =>
 const CardWrapper = lazy(() => LazyImport(import("../../common/cards/index")));
 const Table = lazy(() => LazyImport(import("../../common/Table/index")));
 
-class HomePage extends Component<{ [key: string]: any }, any> {
+interface PropsI {
+  getAllCoinsData: any;
+  getSelectedCurrencyData: any;
+  getAllCoins: any;
+  isNightMode: boolean;
+  setIsNightMode: () => void;
+  [key: string]: any;
+}
+
+interface StateI {
+  coinsData: any;
+}
+
+class HomePage extends Component<PropsI, StateI> {
   constructor(props: any) {
     super(props);
     this.state = {

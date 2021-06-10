@@ -3,9 +3,20 @@ import { connect } from "react-redux";
 import { StoreInterface } from "../../storage/store";
 import CustomSelect from "../select";
 import { getSelectedCurrency } from "../../storage/HomePage/action";
+import { SelectedCurrencyI } from "../../utils/dataInterfaces";
 import "./style.css";
 
-const Header = (props: any) => {
+interface PropsI {
+  isNightMode: boolean;
+  setIsNightMode: () => void;
+  getAllCurrenciesData: any;
+  getSelectedCurrencydata?: {
+    data?: SelectedCurrencyI;
+  };
+  getSelectedCurrency: any;
+}
+
+const Header: React.FC<PropsI> = (props) => {
   const {
     setIsNightMode,
     getAllCurrenciesData,
@@ -13,13 +24,15 @@ const Header = (props: any) => {
     getSelectedCurrencydata,
     getSelectedCurrency,
   } = props;
-  const [currentCurrency, setCurrentCurrency] = useState<any>({});
+  const [currentCurrency, setCurrentCurrency] = useState<
+    Partial<SelectedCurrencyI> | undefined
+  >({});
 
   useEffect(() => {
     setCurrentCurrency(getSelectedCurrencydata?.data);
   }, [getSelectedCurrencydata]);
 
-  const handleChange = async (data: any) => {
+  const handleChange = async (data: SelectedCurrencyI) => {
     await getSelectedCurrency(data);
   };
 

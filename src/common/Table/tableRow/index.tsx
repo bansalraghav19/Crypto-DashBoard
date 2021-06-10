@@ -7,7 +7,13 @@ interface field {
   name: string;
 }
 
-const TableRow = (props: any) => {
+interface PropsI {
+  tableData: any;
+  fields: field[];
+  clickable: boolean;
+}
+
+const TableRow: React.FC<PropsI> = (props) => {
   const { tableData, fields, clickable } = props;
   const history = useHistory();
 

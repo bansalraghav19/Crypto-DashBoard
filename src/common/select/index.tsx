@@ -6,11 +6,12 @@ import React, {
   useLayoutEffect,
   memo,
 } from "react";
+import { SelectedCurrencyI } from "../../utils/dataInterfaces";
 import "./style.css";
 
 interface Props {
   dataList: any[];
-  onChange: (id: number) => void;
+  onChange: (id: SelectedCurrencyI) => void;
   currentCurrency: any;
 }
 

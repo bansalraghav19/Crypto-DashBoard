@@ -1,10 +1,25 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import TableHeader from "./tableHead";
 import TableRow from "./tableRow/index";
 import "./style.css";
+import {
+  HomePageTableInterface,
+  CoinPageTableInterface,
+} from "../../utils/dataInterfaces";
 
-const Table = (props: any) => {
-  const [tableData, setTableData] = useState<any[]>([]);
+interface PropsI<T> {
+  fields: {
+    name: string;
+    key: string;
+  }[];
+  clickable: boolean;
+  data: T[];
+}
+
+const Table = <T extends HomePageTableInterface | CoinPageTableInterface>(
+  props: PropsI<T>
+) => {
+  const [tableData, setTableData] = useState<T[]>([]);
   const [curSortingParameter, setCurSortingParameter] = useState("");
   const [isAscendingSort, setIsAscendingSort] = useState(true);
 
@@ -72,4 +87,4 @@ const Table = (props: any) => {
   );
 };
 
-export default Table;
+export default memo(Table);

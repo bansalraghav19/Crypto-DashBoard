@@ -12,7 +12,11 @@ import "./style.css";
 
 const DEBOUNCED_TIME: number = 500;
 
-const SearchBar = (props: any) => {
+interface PropsI {
+  data: any;
+}
+
+const SearchBar: React.FC<PropsI> = (props) => {
   const [showSugesstionBox, setShowSugesstionBox] = useState<Boolean>(false);
   const [searchValue, setSearchValue] = useState<string>("");
   const [searchData, setSearchData] = useState([]);

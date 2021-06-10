@@ -2,9 +2,17 @@ import React, { useState, memo } from "react";
 import { connect } from "react-redux";
 import { numberToWords } from "../../utils/commonFunctions";
 import { StoreInterface } from "../../storage/store";
+import { SelectedCurrencyI } from "../../utils/dataInterfaces";
 import "./style.css";
 
-const CoinDashBoard = (props: any) => {
+interface PropsI {
+  data: any;
+  getSelectedCurrencydata: {
+    data: SelectedCurrencyI;
+  };
+}
+
+const CoinDashBoard: React.FC<PropsI> = (props) => {
   const [showDescription, setShowDescription] = useState<boolean>(true);
   const { data, getSelectedCurrencydata } = props;
 
