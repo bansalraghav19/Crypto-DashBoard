@@ -1,0 +1,97 @@
+.tc1Container {
+  max-width: 1024%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+}
+
+.tc1Table {
+  border-collapse: separate;
+  border-spacing: 6px;
+  display: block;
+  overflow-x: auto;
+  color: var(--table-font-color);
+  font-family: Arial, sans-serif;
+  position: relative;
+}
+
+.tc1Header {
+  background-color: var(--header-color);
+  border-radius: 6px;
+  padding: 1rem 2rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.App.night .tc1Header {
+  background-color: var(--night-background-light);
+  color: var(--table-night-color);
+  transition: all 0.5s;
+}
+
+.tc1Header .fa-sort-amount-up {
+  color: green;
+}
+
+.tc1Table thead {
+  position: sticky;
+  /* position: -webkit-sticky; */
+  top: 0;
+}
+
+.tc1Header .fa-sort-amount-down-alt {
+  color: red;
+}
+
+.tc1RowData {
+  background-color: var(--data-color);
+  border-radius: 6px;
+  padding: 1rem 2rem;
+  font: 15px;
+  letter-spacing: 0.5px;
+  text-align: center;
+  transition: all 0.5s;
+  font-weight: bold;
+}
+
+.App.night .tc1RowData {
+  background-color: var(--night-background-light);
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  color: var(--table-night-color);
+  transition: all 0.5s;
+}
+
+.tc1RowDataBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tc1pricebox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tc1pricebox i {
+  font-size: 12px;
+}
+
+.tc1RowData img {
+  width: 25px;
+  height: 25px;
+}
+
+.tc1RowData span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tc1Row:hover {
+  transform: scale(1.01);
+  transition: 0.3s;
+  cursor: pointer;
+}

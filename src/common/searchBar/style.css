@@ -1,0 +1,118 @@
+.sb1Container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 600px;
+  z-index: 100;
+  margin: 2rem 0rem;
+}
+
+.sb1searchInput {
+  position: relative;
+  max-width: 1024px;
+  background: #fff;
+  width: 100%;
+}
+
+.sb1Input {
+  height: 55px;
+  width: 100%;
+  outline: none;
+  border: none;
+  border-radius: 5px;
+  padding: 0 60px 0 20px;
+  font-size: 1rem;
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s;
+}
+
+.App.night .sb1Input {
+  color: var(--data-color);
+}
+
+.App.night .sb1searchInput {
+  background: var(--night-background);
+}
+
+.App.night .sb1Input {
+  background: var(--night-background-light);
+}
+
+.sb1Icon {
+  height: 55px;
+  width: 55px;
+  line-height: 55px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-align: center;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+}
+
+.sb1fas.fa-times {
+  cursor: pointer;
+}
+
+.sb1searchInput .sb1SuggestionBox {
+  max-height: 300px;
+  overflow-y: auto;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 55px;
+  padding: 0;
+  margin: 0;
+  background: #fff;
+  box-shadow: 0px 1px 5px 3px rgba(0, 0, 0, 0.12);
+  transform: scaleY(0);
+  transition: transform 0.1s linear;
+  transform-origin: top;
+}
+
+.App.night .sb1searchInput .sb1SuggestionBox {
+  background: var(--night-background-light);
+}
+
+.sb1searchInput.sb1Show .sb1SuggestionBox {
+  transform: scaleY(1);
+  transition: transform 0.1s linear;
+}
+
+.sb1SuggestionBox a,
+.sb1SuggestionBox a:visited,
+.sb1SuggestionBox a:active {
+  color: var(--primary-grey-color);
+  text-decoration: none;
+  z-index: 100;
+}
+
+.sb1ListItem {
+  list-style: none;
+  padding: 10px 12px;
+  display: flex;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 3px;
+  background: white;
+  color: var(--primary-grey-color);
+}
+
+.App.night .sb1ListItem {
+  background: var(--night-color-light);
+}
+
+.sb1ListItem span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sb1ListItem img {
+  width: 25px;
+  height: 25px;
+}
+
+.sb1ListItem:hover {
+  background: #efefef;
+}

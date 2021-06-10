@@ -1,0 +1,158 @@
+.cdb1Container {
+  background-image: linear-gradient(
+    rgb(248, 250, 253) 0%,
+    rgba(248, 250, 253, 0) 413px
+  );
+  width: 100%;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+  transition: all 0.5s;
+  z-index: 101;
+}
+
+.App.night .cdb1Container {
+  background-image: none;
+  background-color: var(--night-background-light);
+  color: var(--table-night-color);
+  transition: all 0.5s;
+}
+
+.cdb1Container > * {
+  flex: 1;
+}
+
+.cdb1Container .cdb1Left img {
+  width: 35px;
+  height: 35px;
+}
+
+.cdb1Row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cdb1Right .cdb1Row {
+  justify-content: flex-end;
+}
+
+.cdb1Row > .cdb1name {
+  font-size: 2.3rem;
+  font-weight: bolder;
+}
+
+.cdb1Tag {
+  background: var(--header-color);
+  color: var(--primary-grey-color);
+  padding: 0.3rem 0.5rem;
+  border-radius: 4px;
+  width: max-content;
+}
+
+.cdb1Tag.cbd1Rank {
+  color: white;
+  background: rgb(128, 138, 157);
+}
+
+.cdb1Container .fa-dollar-sign {
+  font-size: 1.5rem;
+  margin-right: 5px;
+}
+
+.cdb1price {
+  font-size: 2rem;
+  font-weight: bolder;
+}
+
+.cdb1Tag.cdb1Positive {
+  background: lightgreen;
+  color: white;
+  font-weight: 700;
+}
+
+.cdb1Tag.cdb1Negative {
+  background: red;
+  color: white;
+  font-weight: 700;
+}
+
+.cdb1Right .cdb1head {
+  color: var(--primary-grey-color);
+}
+
+.cdb1Container .cdb1links {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.cdb1Container .cdb1links a,
+.cdb1Container .cdb1links a:active,
+.cdb1Container .cdb1links a:visited {
+  text-decoration: none;
+}
+
+.cdb1Container .cdb1links a span {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  cursor: pointer;
+}
+
+.cdb1Container .cdb1Desc {
+  outline: none;
+  border: none;
+  margin-left: 5px;
+  cursor: pointer;
+  background: none;
+  font-weight: bold;
+}
+
+.App.night .cdb1Container .cdb1Desc {
+  color: var(--table-night-color);
+}
+
+.App.night .cdb1descContainer {
+  color: var(--table-night-color);
+}
+
+.cdb1descContainer.cdb1Hide {
+  display: none;
+}
+
+.cdb1descContainer.cdb1Show {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+
+.cdb1Container .cdb1small {
+  font-size: 1rem;
+}
+
+.cdb1right {
+  text-align: right;
+}
+
+.cdb1right div {
+  font-weight: 600;
+}
+
+@media only screen and (max-width: 767px) {
+  .cdb1Container {
+    flex-direction: column;
+  }
+  .cdb1Right .cdb1Row {
+    justify-content: flex-start;
+  }
+  .cdb1right {
+    text-align: left;
+  }
+  .cdb1Container .cdb1links {
+    flex-wrap: nowrap;
+    width: 100%;
+    position: relative;
+    overflow-x: auto;
+    margin-bottom: 10px;
+  }
+}

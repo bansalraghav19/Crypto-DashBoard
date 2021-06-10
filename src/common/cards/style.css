@@ -1,0 +1,41 @@
+.cd1container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 3.5rem;
+  color: var(--active-color);
+  border-radius: 10px;
+  transition: background 0.4s;
+  margin-bottom: 1.5rem;
+  min-width: 25%;
+  user-select: none;
+}
+
+.cd1container:hover {
+  background: var(--active-background);
+}
+
+.cd1container .cd1heading {
+  font-size: 1.4rem;
+  font-weight: 500;
+  margin-bottom: 2.5rem;
+}
+
+.cd1container .cd1count {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.cw1container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  z-index: 10;
+}
+
+@media screen and (max-width: 767px) {
+  .cd1container {
+    width: 100%;
+  }
+}

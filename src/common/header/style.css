@@ -1,0 +1,67 @@
+.header1container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  width: 100%;
+  padding: 0 4rem;
+  z-index: 1001;
+  position: relative;
+}
+
+.header1container .header1headings {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header1container h1 {
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--cards-active-color);
+  cursor: pointer;
+  transition: transform 0.5s;
+}
+
+.App.night .header1container h1 {
+  color: var(--primary-color);
+}
+
+.header1container h1:hover {
+  transform: scale(1.1);
+}
+
+.header1container .header1searchBar {
+  display: flex;
+  justify-content: center;
+}
+
+.header1container .header1headings .fas {
+  font-size: 3rem;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.header1container .header1headings .fas:hover {
+  transform: scale(1.1);
+}
+
+.header1container .fa-moon {
+  color: white;
+}
+
+.header1container .header1RightCol {
+  display: flex;
+  align-items: center;
+}
+
+@media screen and (max-width: 767px) {
+  .header1container {
+    padding: 0 1rem;
+  }
+  .header1container h1 {
+    font-size: 1.5rem;
+  }
+  .header1container .header1headings .fas {
+    font-size: 2rem;
+  }
+}
