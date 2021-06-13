@@ -40,7 +40,7 @@ class HomePage extends Component<PropsI, StateI> {
   }
 
   fetchApiData = async () => {
-    const getSelectedCurrencyData = this.props;
+    const { getSelectedCurrencyData } = this.props;
     const { uuid, symbol } = getSelectedCurrencyData?.data;
     await this.props.getAllCoins(uuid);
     const { getAllCoinsData } = this.props;
@@ -52,7 +52,7 @@ class HomePage extends Component<PropsI, StateI> {
 
   fetchCoinsData = async () => {
     if (this.props.getSelectedCurrencyData?.data?.uuid) {
-      const getSelectedCurrencyData = this.props;
+      const { getSelectedCurrencyData } = this.props;
       const valueCached: { isStored: boolean; data?: any } =
         getLocalStorageValue(
           `allCoins-${getSelectedCurrencyData?.data?.symbol}`
