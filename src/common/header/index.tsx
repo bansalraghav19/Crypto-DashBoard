@@ -42,7 +42,7 @@ const Header: React.FC<PropsI> = (props) => {
         <h1>Crypto DashBoard</h1>
         <div className="header1RightCol">
           <CustomSelect
-            dataList={getAllCurrenciesData?.data?.currencies || []}
+            dataList={getAllCurrenciesData?.currencies || []}
             onChange={handleChange}
             currentCurrency={currentCurrency}
           />

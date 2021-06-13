@@ -92,6 +92,7 @@ const CustomSelect: React.FC<Props> = ({
             width="25px"
             height="25px"
             src={currentCurrency?.iconUrl}
+            alt="table coin logo"
           />
         )}
         <span className="cs55sym mr-5">{currentCurrency?.symbol || ""}</span>
@@ -110,7 +111,9 @@ const CustomSelect: React.FC<Props> = ({
                 data?.uuid === selectedId ? " cs55Selected" : ""
               }`}
             >
-              {data?.iconUrl && <img className="mr-5" src={data?.iconUrl} />}
+              {data?.iconUrl && (
+                <img className="mr-5" src={data?.iconUrl} alt="currency logo" />
+              )}
               <span className="cs55sym mr-5">{data?.symbol || ""}</span>
               <span className="cs55sym">({data?.sign})</span>
             </li>

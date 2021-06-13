@@ -9,6 +9,10 @@ import {
   getAllCachedCurrencies,
   getSelectedCurrency,
 } from "./storage/HomePage/action";
+import {
+  getLocalStorageValue,
+  setLocalStorageValue,
+} from "./utils/localStorage/index";
 import "./App.css";
 
 interface PropsI {
@@ -41,27 +45,26 @@ class App extends Component<PropsI, StateI> {
     if (defaultInr) await this.props.getSelectedCurrency(defaultInr);
   };
 
+  fetchApiData = async () => {
+    await this.props.getAllCurrencies();
+    if (!this?.props?.getAllCurrenciesData?.error) {
+      setLocalStorageValue("allCurrencies", {
+        currencies: this?.props?.getAllCurrenciesData?.data?.data?.currencies,
+      });
+      this.getDefaultCurrency(
+        this?.props?.getAllCurrenciesData?.data?.data?.currencies
+      );
+    }
+  };
+
   fetchAllCurrencies = async () => {
-    const storedValue = localStorage.getItem("allCurrencies");
-    if (storedValue) {
-      await this.props.getAllCachedCurrencies(storedValue);
-      this.getDefaultCurrency(JSON.parse(storedValue)?.data?.currencies);
+    const storedValue: { isStored: boolean; data?: any } =
+      getLocalStorageValue("allCurrencies");
+    if (storedValue?.isStored) {
+      await this.props.getAllCachedCurrencies(storedValue?.data);
+      this.getDefaultCurrency(storedValue.data.currencies);
     } else {
-      await this.props.getAllCurrencies();
-      if (!this?.props?.getAllCurrenciesData?.error) {
-        localStorage.setItem(
-          "allCurrencies",
-          JSON.stringify({
-            data: {
-              currencies:
-                this?.props?.getAllCurrenciesData?.data?.data?.currencies,
-            },
-          })
-        );
-        this.getDefaultCurrency(
-          this?.props?.getAllCurrenciesData?.data?.data?.currencies
-        );
-      }
+      this.fetchApiData();
     }
   };
 

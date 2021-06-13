@@ -54,7 +54,7 @@ export const getAllCachedCurrencies =
     dispatch({
       type: actionTypes.GET_ALL_CURRIENCES_SUCCESS,
       payload: {
-        data: JSON.parse(data),
+        data: data,
       },
     });
   };

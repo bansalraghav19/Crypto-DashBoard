@@ -1,5 +1,4 @@
 import React, { Component, lazy, Suspense } from "react";
-import { CACHE_TIME } from "../../utils/contansts";
 import { scrollToTop } from "../../utils/commonFunctions";
 import { RouteComponentProps, withRouter } from "react-router";
 import { connect } from "react-redux";
@@ -8,6 +7,10 @@ import { StoreInterface } from "../../storage/store";
 import "./style.css";
 import { LazyImport } from "../../utils/lazyImport";
 import { coinPageTableColumns } from "../../utils/tableData";
+import {
+  getLocalStorageValue,
+  setLocalStorageValue,
+} from "../../utils/localStorage";
 
 const Header = lazy(() => LazyImport(import("../../common/header/index")));
 const CoinDashBoard = lazy(() =>
@@ -59,57 +62,43 @@ class CoinPage extends Component<
       this.props.getCoinDataById(coinUuid, countryId),
       this.props.getCoinMarkets(coinUuid, countryId),
     ]);
-  };
-
-  canUseCacheValue = () => {
-    const countrySymbol = this?.props?.getSelectedCurrencyData?.data?.symbol;
-    return new Promise((resolve) => {
-      const storedValue: any = localStorage.getItem(
-        `${this?.props?.match?.params?.coinId}-${countrySymbol}`
+    if (!this?.props?.getCoinByIdData.error) {
+      const countrySymbol = this?.props?.getSelectedCurrencyData?.data?.symbol;
+      this.setState({
+        showErrorMessage: false,
+        coinMarketData: this?.props?.getCoinMarketData?.data?.data,
+        coinData: this?.props?.getCoinByIdData?.data?.data?.coin,
+      });
+      setLocalStorageValue(
+        `${this?.props?.match?.params?.coinId}-${countrySymbol}`,
+        {
+          marketData: this?.props?.getCoinMarketData?.data?.data,
+          dashBoardData: this?.props?.getCoinByIdData?.data?.data?.coin,
+        },
+        true
       );
-      if (
-        !storedValue ||
-        Number(JSON.parse(storedValue)?.expiryTime) <
-          Number(new Date().getTime())
-      ) {
-        resolve(false);
-      }
-      resolve(JSON.parse(storedValue));
-    });
+    } else {
+      this.setState({
+        showErrorMessage: true,
+      });
+    }
   };
 
   fetchDetails = async () => {
     const { getSelectedCurrencyData } = this.props;
     if (getSelectedCurrencyData?.data?.uuid) {
-      const valueCached: any = await this.canUseCacheValue();
-      if (!valueCached) {
+      const countrySymbol = this?.props?.getSelectedCurrencyData?.data?.symbol;
+      const valueCached: { isStored: boolean; data?: any } =
+        getLocalStorageValue(
+          `${this?.props?.match?.params?.coinId}-${countrySymbol}`
+        );
+      if (!valueCached?.isStored) {
         await this.fetchApiData();
-        if (!this?.props?.getCoinByIdData.error) {
-          const countrySymbol =
-            this?.props?.getSelectedCurrencyData?.data?.symbol;
-          this.setState({
-            showErrorMessage: false,
-            coinMarketData: this?.props?.getCoinMarketData?.data?.data,
-            coinData: this?.props?.getCoinByIdData?.data?.data?.coin,
-          });
-          localStorage.setItem(
-            `${this?.props?.match?.params?.coinId}-${countrySymbol}`,
-            JSON.stringify({
-              marketData: this?.props?.getCoinMarketData?.data?.data,
-              dashBoardData: this?.props?.getCoinByIdData?.data?.data?.coin,
-              expiryTime: new Date().getTime() + CACHE_TIME,
-            })
-          );
-        } else {
-          this.setState({
-            showErrorMessage: true,
-          });
-        }
       } else {
         this.setState({
           showErrorMessage: false,
-          coinMarketData: valueCached?.marketData,
-          coinData: valueCached?.dashBoardData,
+          coinMarketData: valueCached?.data.marketData,
+          coinData: valueCached?.data.dashBoardData,
         });
       }
     }

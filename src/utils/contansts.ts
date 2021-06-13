@@ -29,5 +29,3 @@ export const cardsData = [
   { key: "totalMarketCap", name: "Total Market Cap", isCurrency: true },
   { key: "totalMarkets", name: "Total Markets", isCurrency: false },
 ];
-
-export const CACHE_TIME = 1000 * 24 * 60 * 60;

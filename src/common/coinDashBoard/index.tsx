@@ -28,7 +28,7 @@ const CoinDashBoard: React.FC<PropsI> = (props) => {
     <div className="cdb1Container fadeInUp">
       <div className="cdb1Left">
         <div className="cdb1Row mb-20">
-          <img className="mr-10" src={data?.iconUrl} />
+          <img className="mr-10" src={data?.iconUrl} alt="coinLogo" />
           <span style={{ color: data?.color }} className="cdb1name mr-10">
             {data?.name}
           </span>

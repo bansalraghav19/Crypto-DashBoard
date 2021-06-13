@@ -85,7 +85,7 @@ const SearchBar: React.FC<PropsI> = (props) => {
               >
                 <span className="mr-auto">
                   <span className="mr-10">{row?.name}</span>
-                  <img src={row?.iconUrl} />
+                  <img src={row?.iconUrl} alt="search coin logo" />
                 </span>
                 <span>{row?.symbol}</span>
               </li>

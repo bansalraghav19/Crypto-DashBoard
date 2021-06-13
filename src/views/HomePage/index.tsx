@@ -1,11 +1,14 @@
 import React, { Component, lazy, Suspense } from "react";
 import { connect } from "react-redux";
-import { CACHE_TIME } from "../../utils/contansts";
 import { homePageTableColumns } from "../../utils/tableData/index";
 import { scrollToTop } from "../../utils/commonFunctions";
 import { LazyImport } from "../../utils/lazyImport";
 import { getAllCoins } from "../../storage/HomePage/action";
 import { StoreInterface } from "../../storage/store";
+import {
+  getLocalStorageValue,
+  setLocalStorageValue,
+} from "../../utils/localStorage/index";
 import "./style.css";
 
 const Header = lazy(() => LazyImport(import("../../common/header/index")));
@@ -36,40 +39,26 @@ class HomePage extends Component<PropsI, StateI> {
     };
   }
 
-  canUseCacheValue = () => {
-    return new Promise((resolve) => {
-      const { getSelectedCurrencyData } = this.props;
-      const storedValue: any = localStorage.getItem(
-        `allCoins-${getSelectedCurrencyData?.data?.symbol}`
-      );
-      if (
-        !storedValue ||
-        Number(JSON.parse(storedValue)?.expiryTime) <
-          Number(new Date().getTime())
-      ) {
-        resolve(false);
-      }
-      resolve(JSON.parse(storedValue));
-    });
+  fetchApiData = async () => {
+    const getSelectedCurrencyData = this.props;
+    const { uuid, symbol } = getSelectedCurrencyData?.data;
+    await this.props.getAllCoins(uuid);
+    const { getAllCoinsData } = this.props;
+    if (!getAllCoinsData?.error) {
+      this.setState({ coinsData: getAllCoinsData?.data?.data });
+      setLocalStorageValue(`allCoins-${symbol}`, getAllCoinsData?.data, true);
+    }
   };
 
   fetchCoinsData = async () => {
     if (this.props.getSelectedCurrencyData?.data?.uuid) {
-      const valueCached: any = await this.canUseCacheValue();
-      if (!valueCached) {
-        const { uuid, symbol } = this.props.getSelectedCurrencyData?.data;
-        await this?.props?.getAllCoins?.(uuid);
-        const { getAllCoinsData } = this.props;
-        if (!getAllCoinsData?.error) {
-          this.setState({ coinsData: getAllCoinsData?.data?.data });
-          localStorage.setItem(
-            `allCoins-${symbol}`,
-            JSON.stringify({
-              data: getAllCoinsData?.data,
-              expiryTime: new Date().getTime() + CACHE_TIME,
-            })
-          );
-        }
+      const getSelectedCurrencyData = this.props;
+      const valueCached: { isStored: boolean; data?: any } =
+        getLocalStorageValue(
+          `allCoins-${getSelectedCurrencyData?.data?.symbol}`
+        );
+      if (!valueCached?.isStored) {
+        this.fetchApiData();
       } else {
         this.setState({ coinsData: valueCached?.data?.data });
       }
