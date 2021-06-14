@@ -5,18 +5,6 @@ import {
 } from "../dataInterfaces";
 import { sortedByNumber, sortedLexographically } from "../commonFunctions";
 
-const sortNumber = (
-  initialArray: any,
-  fieldName: string,
-  increasing: boolean
-) => sortedByNumber(initialArray, fieldName, increasing);
-
-const sortString = (
-  initialArray: any,
-  fieldName: string,
-  increasing: boolean
-) => sortedLexographically(initialArray, fieldName, increasing);
-
 export const homePageTableColumns = [
   {
     key: "rank",
@@ -24,7 +12,7 @@ export const homePageTableColumns = [
     render: (row: HomePageTableInterface) => (
       <span>{numberToWords(row.rank)}</span>
     ),
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "name",
@@ -38,7 +26,7 @@ export const homePageTableColumns = [
         <span> {`(${row?.symbol})`}</span>
       </>
     ),
-    sortingFunction: sortString,
+    sortingFunction: sortedLexographically,
   },
   {
     key: "price",
@@ -51,14 +39,14 @@ export const homePageTableColumns = [
             <div
               className="tc1pricebox mb-10"
               style={{
-                color: parseInt(delta) >= 0 ? "green" : "red",
+                color: Number(delta) < 0 ? "red" : "green",
               }}
             >
               <span className="mr-5">{delta}%</span>
               <span>
                 <i
                   className={`fal fa-arrow-${
-                    parseInt(delta) >= 0 ? "up" : "down"
+                    Number(delta) < 0 ? "down" : "up"
                   }`}
                 ></i>
               </span>
@@ -71,7 +59,7 @@ export const homePageTableColumns = [
         </div>
       );
     },
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "change",
@@ -82,19 +70,19 @@ export const homePageTableColumns = [
         <div
           className="tc1pricebox"
           style={{
-            color: parseInt(delta) >= 0 ? "green" : "red",
+            color: Number(delta) < 0 ? "red" : "green",
           }}
         >
           <span className="mr-5">{delta}%</span>
           <span>
             <i
-              className={`fal fa-arrow-${parseInt(delta) >= 0 ? "up" : "down"}`}
+              className={`fal fa-arrow-${Number(delta) < 0 ? "down" : "up"}`}
             ></i>
           </span>
         </div>
       );
     },
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "marketCap",
@@ -105,7 +93,7 @@ export const homePageTableColumns = [
         {numberToWords(row?.marketCap)}
       </span>
     ),
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "btcPrice",
@@ -113,7 +101,7 @@ export const homePageTableColumns = [
     render: (row: HomePageTableInterface) => (
       <span>{numberToWords(row?.btcPrice)}</span>
     ),
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
 ];
 
@@ -124,7 +112,7 @@ export const coinPageTableColumns = [
     render: (row: CoinPageTableInterface) => (
       <span>{numberToWords(row.rank)}</span>
     ),
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "source",
@@ -184,23 +172,6 @@ export const coinPageTableColumns = [
       const delta = numberToWords(row?.change);
       return (
         <div>
-          {!isNaN(Number(delta)) && (
-            <div
-              className="tc1pricebox mb-10"
-              style={{
-                color: parseInt(delta) >= 0 ? "green" : "red",
-              }}
-            >
-              <span className="mr-5">{delta}%</span>
-              <span>
-                <i
-                  className={`fal fa-arrow-${
-                    parseInt(delta) >= 0 ? "up" : "down"
-                  }`}
-                ></i>
-              </span>
-            </div>
-          )}
           <div>
             {currency || ""}
             {numberToWords(row.price)}
@@ -208,7 +179,7 @@ export const coinPageTableColumns = [
         </div>
       );
     },
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "24hVolume",
@@ -219,7 +190,7 @@ export const coinPageTableColumns = [
         {numberToWords(row?.["24hVolume"])}
       </span>
     ),
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "marketShare",
@@ -227,7 +198,7 @@ export const coinPageTableColumns = [
     render: (row: CoinPageTableInterface) => (
       <span>{numberToWords(row?.marketShare)}</span>
     ),
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
   {
     key: "btcPrice",
@@ -235,6 +206,6 @@ export const coinPageTableColumns = [
     render: (row: CoinPageTableInterface) => (
       <span>{numberToWords(row?.btcPrice)}</span>
     ),
-    sortingFunction: sortNumber,
+    sortingFunction: sortedByNumber,
   },
 ];

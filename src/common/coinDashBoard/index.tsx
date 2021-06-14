@@ -21,10 +21,10 @@ const CoinDashBoard: React.FC<PropsI> = (props) => {
   };
 
   const isPositiveChange = () => {
-    return Math.floor(data?.change) >= 0;
+    return !Boolean(Number(data?.change) < 0);
   };
 
-  return data ? (
+  return Boolean(data) ? (
     <div className="cdb1Container fadeInUp">
       <div className="cdb1Left">
         <div className="cdb1Row mb-20">
@@ -85,7 +85,7 @@ const CoinDashBoard: React.FC<PropsI> = (props) => {
         <div className="mb-10 cdb1right">
           <div className="cdb1head">Volume (24 Hr)</div>
           {getSelectedCurrencydata?.data?.sign || ""}
-          {numberToWords(data?.["24hVolume"])}%
+          {numberToWords(data?.["24hVolume"])}
         </div>
         <div className="mb-10 cdb1right">
           <div className="cdb1head">Market Capacity </div>

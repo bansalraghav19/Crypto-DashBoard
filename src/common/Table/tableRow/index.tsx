@@ -27,7 +27,7 @@ const TableRow: React.FC<PropsI> = (props) => {
         >
           {dataColumns?.map((field: tableColumnI, index: number) => (
             <td className="tc1RowData" key={index}>
-              <div className="tc1RowDataBox">
+              <div className={`tc1RowDataBox tc1cell${field.key}`}>
                 <Cell column={field} row={row} />
               </div>
             </td>

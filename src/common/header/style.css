@@ -17,13 +17,9 @@
 .header1container h1 {
   font-size: 2rem;
   font-weight: 300;
-  color: var(--cards-active-color);
+  color: var(--primary-color);
   cursor: pointer;
   transition: transform 0.5s;
-}
-
-.App.night .header1container h1 {
-  color: var(--primary-color);
 }
 
 .header1container h1:hover {

@@ -11,7 +11,7 @@
   border-spacing: 6px;
   display: block;
   overflow-x: auto;
-  color: var(--table-font-color);
+  color: var(--primary-text-color);
   font-family: Arial, sans-serif;
   position: relative;
 }
@@ -34,12 +34,7 @@
   text-align: center;
   cursor: pointer;
   transition: all 0.5s;
-}
-
-.App.night .tc1Header {
-  background-color: var(--night-background-light);
-  color: var(--table-night-color);
-  transition: all 0.5s;
+  color: var(--primary-text-color);
 }
 
 .tc1Header .fa-sort-amount-up {
@@ -57,7 +52,7 @@
 }
 
 .tc1RowData {
-  background-color: var(--data-color);
+  background-color: var(--cell-background);
   border-radius: 6px;
   padding: 1rem 2rem;
   font: 15px;
@@ -68,16 +63,17 @@
 }
 
 .App.night .tc1RowData {
-  background-color: var(--night-background-light);
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
-  color: var(--table-night-color);
-  transition: all 0.5s;
 }
 
 .tc1RowDataBox {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.tc1RowDataBox img {
+  background-color: white;
 }
 
 .tc1pricebox {
@@ -105,4 +101,9 @@
   transform: scale(1.01);
   transition: 0.3s;
   cursor: pointer;
+}
+
+.tc1cellname,
+.tc1cellsource {
+  justify-content: flex-start;
 }

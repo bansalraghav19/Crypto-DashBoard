@@ -4,6 +4,7 @@ import { colors } from "../../utils/colors";
 import { cardsData } from "../../utils/contansts";
 import { StoreInterface } from "../../storage/store";
 import "./style.css";
+import { numberToWords } from "../../utils/commonFunctions";
 
 interface CardI {
   heading: string;
@@ -36,7 +37,7 @@ const Card = ({
       <p className="cd1heading">{heading.toUpperCase()}</p>
       <p className="cd1count">
         {isCurrency ? <span>{currencySign || ""}</span> : ""}
-        {Number(count).toLocaleString()}
+        {numberToWords(count)}
       </p>
     </div>
   );

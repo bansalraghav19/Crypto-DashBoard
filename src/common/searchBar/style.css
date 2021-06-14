@@ -10,8 +10,10 @@
 .sb1searchInput {
   position: relative;
   max-width: 1024px;
-  background: #fff;
+  background-color: var(--primary-background-light);
+  color: var(--primary-text-color);
   width: 100%;
+  border-radius: 5px;
 }
 
 .sb1Input {
@@ -24,18 +26,8 @@
   font-size: 1rem;
   box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1);
   transition: all 0.4s;
-}
-
-.App.night .sb1Input {
-  color: var(--data-color);
-}
-
-.App.night .sb1searchInput {
-  background: var(--night-background);
-}
-
-.App.night .sb1Input {
-  background: var(--night-background-light);
+  color: var(--primary-text-color);
+  background: var(--primary-background-light);
 }
 
 .sb1Icon {
@@ -68,10 +60,7 @@
   transform: scaleY(0);
   transition: transform 0.1s linear;
   transform-origin: top;
-}
-
-.App.night .sb1searchInput .sb1SuggestionBox {
-  background: var(--night-background-light);
+  background-color: var(--primary-background-color);
 }
 
 .sb1searchInput.sb1Show .sb1SuggestionBox {
@@ -94,12 +83,12 @@
   width: 100%;
   cursor: pointer;
   border-radius: 3px;
-  background: white;
+  background: var(--primary-background-color);
   color: var(--primary-grey-color);
 }
 
 .App.night .sb1ListItem {
-  background: var(--night-color-light);
+  color: white !important;
 }
 
 .sb1ListItem span {
@@ -114,5 +103,5 @@
 }
 
 .sb1ListItem:hover {
-  background: #efefef;
+  background: var(--primary-hover-color);
 }
