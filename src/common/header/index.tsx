@@ -38,7 +38,7 @@ const Header: React.FC<Props> = (props) => {
           />
           <i
             onClick={setIsNightMode}
-            className={`fas fa-${isNightMode ? "sun" : "moon"}`}
+            className={`fas fa-${isNightMode ? "moon" : "sun"}`}
           ></i>
         </div>
       </div>

@@ -19,11 +19,12 @@ class App extends Component<PropsFromRedux, StateI> {
   constructor(props: any) {
     super(props);
     this.state = {
-      isNightMode: true,
+      isNightMode: false,
     };
   }
 
   setIsNightMode = () => {
+    setLocalStorageValue("isNightMode", !this.state.isNightMode);
     this.setState({
       isNightMode: !this.state.isNightMode,
     });
@@ -60,14 +61,21 @@ class App extends Component<PropsFromRedux, StateI> {
     }
   };
 
+  checkBackgroundMode = () => {
+    const storedValue: { isStored: boolean; data?: any } =
+      getLocalStorageValue("isNightMode");
+    this.setState({ isNightMode: Boolean(storedValue?.data) });
+  };
+
   componentDidMount = () => {
     this.fetchAllCurrencies();
+    this.checkBackgroundMode();
   };
 
   render() {
     const { isNightMode } = this.state;
     return (
-      <div className={`App ${isNightMode ? "" : " night"}`}>
+      <div className={`App ${isNightMode ? " night" : ""}`}>
         <Switch>
           <Route path="/" exact>
             <HomePage
