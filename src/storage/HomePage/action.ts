@@ -38,7 +38,7 @@ export const getAllCurrencies =
       dispatch({
         type: actionTypes.GET_ALL_CURRIENCES_SUCCESS,
         payload: {
-          data: response.data,
+          data: response.data?.data,
         },
       });
     } catch (error) {

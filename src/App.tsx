@@ -36,12 +36,15 @@ class App extends Component<PropsFromRedux, StateI> {
 
   fetchApiData = async () => {
     await this.props.getAllCurrencies();
-    if (!this?.props?.getAllCurrenciesData?.error) {
+    if (
+      !this?.props?.getAllCurrenciesData?.error &&
+      this.props.getAllCurrenciesData?.data?.currencies
+    ) {
       setLocalStorageValue("allCurrencies", {
-        currencies: this?.props?.getAllCurrenciesData?.data?.data?.currencies,
+        currencies: this.props.getAllCurrenciesData?.data?.currencies,
       });
       this.getDefaultCurrency(
-        this?.props?.getAllCurrenciesData?.data?.data?.currencies
+        this?.props?.getAllCurrenciesData?.data?.currencies
       );
     }
   };
