@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Redirect, Route, Switch } from "react-router";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import CoinPage from "./views/coinPage";
 import HomePage from "./views/HomePage";
 import { StoreInterface } from "./storage/store";
@@ -15,18 +15,7 @@ import {
 } from "./utils/localStorage/index";
 import "./App.css";
 
-interface PropsI {
-  getAllCurrenciesData: any;
-  getAllCurrencies: any;
-  getAllCachedCurrencies: any;
-  getSelectedCurrency: any;
-}
-
-interface StateI {
-  isNightMode: boolean;
-}
-
-class App extends Component<PropsI, StateI> {
+class App extends Component<PropsFromRedux, StateI> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -98,12 +87,20 @@ class App extends Component<PropsI, StateI> {
   }
 }
 
+interface StateI {
+  isNightMode: boolean;
+}
+
 const mapStateToProps = (store: StoreInterface) => ({
   getAllCurrenciesData: store.homePage.getAllCurrencies,
 });
 
-export default connect(mapStateToProps, {
+const connector = connect(mapStateToProps, {
   getAllCurrencies,
   getAllCachedCurrencies,
   getSelectedCurrency,
-})(App);
+});
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(App);

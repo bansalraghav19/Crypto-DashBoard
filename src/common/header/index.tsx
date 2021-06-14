@@ -1,22 +1,12 @@
 import React, { useEffect, useState, memo } from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { StoreInterface } from "../../storage/store";
 import CustomSelect from "../select";
 import { getSelectedCurrency } from "../../storage/HomePage/action";
 import { SelectedCurrencyI } from "../../utils/dataInterfaces";
 import "./style.css";
 
-interface PropsI {
-  isNightMode: boolean;
-  setIsNightMode: () => void;
-  getAllCurrenciesData: any;
-  getSelectedCurrencydata?: {
-    data?: SelectedCurrencyI;
-  };
-  getSelectedCurrency: any;
-}
-
-const Header: React.FC<PropsI> = (props) => {
+const Header: React.FC<Props> = (props) => {
   const {
     setIsNightMode,
     getAllCurrenciesData,
@@ -56,9 +46,18 @@ const Header: React.FC<PropsI> = (props) => {
   );
 };
 
+interface Props extends PropsFromRedux {
+  isNightMode: boolean;
+  setIsNightMode: () => void;
+}
+
 const mapStateToProps = (store: StoreInterface) => ({
   getAllCurrenciesData: store?.homePage?.getAllCurrencies?.data,
   getSelectedCurrencydata: store?.homePage?.getSelectedCurrency,
 });
 
-export default connect(mapStateToProps, { getSelectedCurrency })(memo(Header));
+const connector = connect(mapStateToProps, { getSelectedCurrency });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(memo(Header));

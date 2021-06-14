@@ -1,5 +1,5 @@
 import React, { Component, lazy, Suspense } from "react";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { homePageTableColumns } from "../../utils/tableData/index";
 import { scrollToTop } from "../../utils/commonFunctions";
 import { LazyImport } from "../../utils/lazyImport";
@@ -17,19 +17,6 @@ const SearchBar = lazy(() =>
 );
 const CardWrapper = lazy(() => LazyImport(import("../../common/cards/index")));
 const Table = lazy(() => LazyImport(import("../../common/Table/index")));
-
-interface PropsI {
-  getAllCoinsData: any;
-  getSelectedCurrencyData: any;
-  getAllCoins: any;
-  isNightMode: boolean;
-  setIsNightMode: () => void;
-  [key: string]: any;
-}
-
-interface StateI {
-  coinsData: any;
-}
 
 class HomePage extends Component<PropsI, StateI> {
   constructor(props: any) {
@@ -107,9 +94,22 @@ class HomePage extends Component<PropsI, StateI> {
   }
 }
 
+interface PropsI extends PropsFromRedux {
+  isNightMode: boolean;
+  setIsNightMode: () => void;
+}
+
+interface StateI {
+  coinsData: any;
+}
+
 const mapStateToProps = (store: StoreInterface) => ({
   getAllCoinsData: store.homePage.getAllCoinsData,
   getSelectedCurrencyData: store.homePage.getSelectedCurrency,
 });
 
-export default connect(mapStateToProps, { getAllCoins })(HomePage);
+const connector = connect(mapStateToProps, { getAllCoins });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(HomePage);

@@ -1,16 +1,16 @@
 import React, { Component, lazy, Suspense } from "react";
 import { scrollToTop } from "../../utils/commonFunctions";
 import { RouteComponentProps, withRouter } from "react-router";
-import { connect } from "react-redux";
+import { connect, ConnectedProps } from "react-redux";
 import { getCoinDataById, getCoinMarkets } from "../../storage/CoinPage/action";
 import { StoreInterface } from "../../storage/store";
-import "./style.css";
 import { LazyImport } from "../../utils/lazyImport";
 import { coinPageTableColumns } from "../../utils/tableData";
 import {
   getLocalStorageValue,
   setLocalStorageValue,
 } from "../../utils/localStorage";
+import "./style.css";
 
 const Header = lazy(() => LazyImport(import("../../common/header/index")));
 const CoinDashBoard = lazy(() =>
@@ -20,27 +20,6 @@ const Table = lazy(() => LazyImport(import("../../common/Table/index")));
 const ErrorPage = lazy(() =>
   LazyImport(import("../../common/errorPage/index"))
 );
-
-type PathParamsType = {
-  coinId: string;
-};
-
-interface PropsI {
-  getCoinByIdData: any;
-  getCoinMarketData: any;
-  getCoinDataById: any;
-  getCoinMarkets: any;
-  getSelectedCurrencyData: any;
-  isNightMode: boolean;
-  setIsNightMode: () => void;
-  [key: string]: any;
-}
-
-interface StateI {
-  coinData: any;
-  coinMarketData: any;
-  showErrorMessage: boolean;
-}
 
 class CoinPage extends Component<
   PropsI & RouteComponentProps<PathParamsType>,
@@ -59,8 +38,8 @@ class CoinPage extends Component<
     const countryId = this?.props?.getSelectedCurrencyData?.data?.uuid;
     const coinUuid = this?.props?.match?.params?.coinId;
     await Promise.all([
-      this.props.getCoinDataById(coinUuid, countryId),
-      this.props.getCoinMarkets(coinUuid, countryId),
+      this.props.getCoinDataById(coinUuid as string, countryId),
+      this.props.getCoinMarkets(coinUuid as string, countryId),
     ]);
     if (!this?.props?.getCoinByIdData.error) {
       const countrySymbol = this?.props?.getSelectedCurrencyData?.data?.symbol;
@@ -144,12 +123,29 @@ class CoinPage extends Component<
   }
 }
 
+type PathParamsType = {
+  coinId: string;
+};
+
+interface PropsI extends PropsFromRedux {
+  isNightMode: boolean;
+  setIsNightMode: () => void;
+}
+
+interface StateI {
+  coinData: any;
+  coinMarketData: any;
+  showErrorMessage: boolean;
+}
+
 const mapStateToProps = (store: StoreInterface) => ({
   getCoinByIdData: store.coinPage.getCoinById,
   getCoinMarketData: store.coinPage.getCoinMarkets,
   getSelectedCurrencyData: store.homePage.getSelectedCurrency,
 });
 
-export default connect(mapStateToProps, { getCoinDataById, getCoinMarkets })(
-  withRouter(CoinPage)
-);
+const connector = connect(mapStateToProps, { getCoinDataById, getCoinMarkets });
+
+type PropsFromRedux = ConnectedProps<typeof connector>;
+
+export default connector(withRouter(CoinPage));
