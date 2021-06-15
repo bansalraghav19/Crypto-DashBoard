@@ -14,12 +14,17 @@
   align-items: center;
 }
 
+.header1container a {
+  text-decoration: none;
+}
+
 .header1container h1 {
   font-size: 2rem;
   font-weight: 300;
   color: var(--primary-color);
   cursor: pointer;
   transition: transform 0.5s;
+  text-decoration: none;
 }
 
 .header1container h1:hover {

@@ -5,6 +5,7 @@ import CustomSelect from "../select";
 import { getSelectedCurrency } from "../../storage/HomePage/action";
 import { SelectedCurrencyI } from "../../utils/dataInterfaces";
 import "./style.css";
+import { Link } from "react-router-dom";
 
 const Header: React.FC<Props> = (props) => {
   const {
@@ -29,7 +30,9 @@ const Header: React.FC<Props> = (props) => {
   return (
     <div className="header1container fadeInUp">
       <div className="header1headings">
-        <h1>Crypto DashBoard</h1>
+        <Link to="/">
+          <h1>Crypto DashBoard</h1>
+        </Link>
         <div className="header1RightCol">
           <CustomSelect
             dataList={getAllCurrenciesData?.currencies || []}
