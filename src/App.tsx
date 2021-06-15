@@ -1,6 +1,7 @@
-import React, { Component } from "react";
+import React, { Component, lazy, Suspense } from "react";
 import { Redirect, Route, Switch } from "react-router";
 import { connect, ConnectedProps } from "react-redux";
+
 import CoinPage from "./views/coinPage";
 import HomePage from "./views/HomePage";
 import { StoreInterface } from "./storage/store";
@@ -13,7 +14,10 @@ import {
   getLocalStorageValue,
   setLocalStorageValue,
 } from "./utils/localStorage/index";
+import { LazyImport } from "./utils/lazyImport";
 import "./App.css";
+
+const Header = lazy(() => LazyImport(import("./common/header/index")));
 
 class App extends Component<PropsFromRedux, StateI> {
   constructor(props: any) {
@@ -77,18 +81,18 @@ class App extends Component<PropsFromRedux, StateI> {
     const { isNightMode } = this.state;
     return (
       <div className={`App ${isNightMode ? " night" : ""}`}>
+        <Suspense fallback={<div></div>}>
+          <Header
+            isNightMode={isNightMode}
+            setIsNightMode={this.setIsNightMode}
+          />
+        </Suspense>
         <Switch>
           <Route path="/" exact>
-            <HomePage
-              isNightMode={isNightMode}
-              setIsNightMode={this.setIsNightMode}
-            />
+            <HomePage />
           </Route>
           <Route path="/coin/:coinId" exact>
-            <CoinPage
-              isNightMode={isNightMode}
-              setIsNightMode={this.setIsNightMode}
-            />
+            <CoinPage />
           </Route>
           <Route path="*">
             <Redirect to="/" />

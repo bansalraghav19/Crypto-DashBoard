@@ -11,7 +11,6 @@ import {
 } from "../../utils/localStorage/index";
 import "./style.css";
 
-const Header = lazy(() => LazyImport(import("../../common/header/index")));
 const SearchBar = lazy(() =>
   LazyImport(import("../../common/searchBar/index"))
 );
@@ -71,12 +70,6 @@ class HomePage extends Component<PropsI, StateI> {
     return (
       <div className="hp1Layout">
         <Suspense fallback={<div></div>}>
-          <Header
-            isNightMode={this.props.isNightMode}
-            setIsNightMode={this.props.setIsNightMode}
-          />
-        </Suspense>
-        <Suspense fallback={<div></div>}>
           <SearchBar data={this?.state?.coinsData?.coins || []} />
         </Suspense>
         <Suspense fallback={<div></div>}>
@@ -94,10 +87,7 @@ class HomePage extends Component<PropsI, StateI> {
   }
 }
 
-interface PropsI extends PropsFromRedux {
-  isNightMode: boolean;
-  setIsNightMode: () => void;
-}
+interface PropsI extends PropsFromRedux {}
 
 interface StateI {
   coinsData: any;

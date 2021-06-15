@@ -12,7 +12,6 @@ import {
 } from "../../utils/localStorage";
 import "./style.css";
 
-const Header = lazy(() => LazyImport(import("../../common/header/index")));
 const CoinDashBoard = lazy(() =>
   LazyImport(import("../../common/coinDashBoard/index"))
 );
@@ -101,12 +100,6 @@ class CoinPage extends Component<
     return (
       <div className="cp56Layout">
         <Suspense fallback={<div></div>}>
-          <Header
-            isNightMode={this.props.isNightMode}
-            setIsNightMode={this.props.setIsNightMode}
-          />
-        </Suspense>
-        <Suspense fallback={<div></div>}>
           {this.state.showErrorMessage && <ErrorPage />}
         </Suspense>
         <Suspense fallback={<div></div>}>
@@ -127,10 +120,7 @@ type PathParamsType = {
   coinId: string;
 };
 
-interface PropsI extends PropsFromRedux {
-  isNightMode: boolean;
-  setIsNightMode: () => void;
-}
+interface PropsI extends PropsFromRedux {}
 
 interface StateI {
   coinData: any;
