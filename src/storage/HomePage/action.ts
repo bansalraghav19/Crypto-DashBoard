@@ -2,6 +2,7 @@ import axios from "axios";
 import * as actionTypes from "./actionType";
 import { Dispatch } from "react";
 import { headersOptions } from "../../utils/headers";
+import useAxios from "../../api";
 
 export const getAllCoins =
   (countryId: string = "6mUvpzCc2lFo") =>
@@ -9,17 +10,18 @@ export const getAllCoins =
     dispatch({
       type: actionTypes.GET_ALL_COINS_DATA,
     });
-    try {
-      const response = await axios.get(
-        `https://api.coinranking.com/v2/coins?limit=100&referenceCurrencyUuid=${countryId}`
-      );
+    const response = await useAxios({
+      url: `coins?limit=100&referenceCurrencyUuid=${countryId}`,
+      method: "GET",
+    });
+    if (!response.isError) {
       dispatch({
         type: actionTypes.GET_ALL_COINS_DATA_SUCCESS,
         payload: {
           data: response.data,
         },
       });
-    } catch (error) {
+    } else {
       dispatch({
         type: actionTypes.GET_ALL_COINS_DATA_FAILED,
       });
@@ -31,17 +33,18 @@ export const getAllCurrencies =
     dispatch({
       type: actionTypes.GET_ALL_CURRIENCES,
     });
-    try {
-      const response = await axios.get(
-        `https://api.coinranking.com/v2/reference-currencies?types[]=fiat&limit=20`
-      );
+    const response = await useAxios({
+      url: "reference-currencies?types[]=fiat&limit=20",
+      method: "GET",
+    });
+    if (!response.isError) {
       dispatch({
         type: actionTypes.GET_ALL_CURRIENCES_SUCCESS,
         payload: {
-          data: response.data?.data,
+          data: response?.data?.data,
         },
       });
-    } catch (error) {
+    } else {
       dispatch({
         type: actionTypes.GET_ALL_CURRIENCES_FAILED,
       });

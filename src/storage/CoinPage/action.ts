@@ -1,6 +1,7 @@
 import axios from "axios";
 import * as actionTypes from "./actionType";
 import { Dispatch } from "react";
+import useAxios from "../../api";
 
 export const getCoinDataById =
   (uuid: string, countryId: string = "6mUvpzCc2lFo") =>
@@ -8,17 +9,18 @@ export const getCoinDataById =
     dispatch({
       type: actionTypes.GET_COIN_DATA,
     });
-    try {
-      const response = await axios.get(
-        `https://api.coinranking.com/v2/coin/${uuid}?referenceCurrencyUuid=${countryId}`
-      );
+    const response = await useAxios({
+      url: `coin/${uuid}?referenceCurrencyUuid=${countryId}`,
+      method: "GET",
+    });
+    if (!response.isError) {
       dispatch({
         type: actionTypes.GET_COIN_DATA_SUCCESS,
         payload: {
           data: response.data,
         },
       });
-    } catch (error) {
+    } else {
       dispatch({
         type: actionTypes.GET_COIN_DATA_FAILED,
       });
@@ -31,17 +33,18 @@ export const getCoinMarkets =
     dispatch({
       type: actionTypes.GET_COIN_MARKETS,
     });
-    try {
-      const response = await axios.get(
-        `https://api.coinranking.com/v2/coin/${uuid}/markets?referenceCurrencyUuid=${countryId}`
-      );
+    const response = await useAxios({
+      url: `coin/${uuid}/markets?referenceCurrencyUuid=${countryId}`,
+      method: "GET",
+    });
+    if (!response.isError) {
       dispatch({
         type: actionTypes.GET_COIN_MARKETS_SUCCESS,
         payload: {
           data: response.data,
         },
       });
-    } catch (error) {
+    } else {
       dispatch({
         type: actionTypes.GET_COIN_MARKETS_FAILED,
       });

@@ -37,6 +37,7 @@ class App extends Component<PropsFromRedux, StateI> {
 
   fetchApiData = async () => {
     await this.props.getAllCurrencies();
+    console.log(this.props.getAllCurrenciesData);
     if (
       !this?.props?.getAllCurrenciesData?.error &&
       this.props.getAllCurrenciesData?.data?.currencies
