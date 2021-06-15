@@ -26,7 +26,7 @@ export const numberToWords = (number: number | string) => {
 };
 
 export const scrollToTop = () => {
-  window.scrollTo({ top: 0 });
+  window.scrollTo({ top: -30 });
 };
 
 // pure sorting functions

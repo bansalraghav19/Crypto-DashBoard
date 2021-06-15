@@ -1,7 +1,5 @@
-import axios from "axios";
 import * as actionTypes from "./actionType";
 import { Dispatch } from "react";
-import { headersOptions } from "../../utils/headers";
 import useAxios from "../../api";
 
 export const getAllCoins =

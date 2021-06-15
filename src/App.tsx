@@ -14,26 +14,11 @@ import {
   getLocalStorageValue,
   setLocalStorageValue,
 } from "./utils/localStorage/index";
-import { LazyImport } from "./utils/lazyImport";
 import "./App.css";
 
-const Header = lazy(() => LazyImport(import("./common/header/index")));
+const Header = lazy(() => import("./common/header/index"));
 
-class App extends Component<PropsFromRedux, StateI> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      isNightMode: false,
-    };
-  }
-
-  setIsNightMode = () => {
-    setLocalStorageValue("isNightMode", !this.state.isNightMode);
-    this.setState({
-      isNightMode: !this.state.isNightMode,
-    });
-  };
-
+class App extends Component<PropsFromRedux> {
   getDefaultCurrency = async (currencies: any) => {
     const defaultInr = currencies?.find((cur: any) => cur?.symbol === "INR");
     if (defaultInr) await this.props.getSelectedCurrency(defaultInr);
@@ -66,26 +51,15 @@ class App extends Component<PropsFromRedux, StateI> {
     }
   };
 
-  checkBackgroundMode = () => {
-    const storedValue: { isStored: boolean; data?: any } =
-      getLocalStorageValue("isNightMode");
-    this.setState({ isNightMode: Boolean(storedValue?.data) });
-  };
-
   componentDidMount = () => {
     this.fetchAllCurrencies();
-    this.checkBackgroundMode();
   };
 
   render() {
-    const { isNightMode } = this.state;
     return (
-      <div className={`App ${isNightMode ? " night" : ""}`}>
+      <div className="App">
         <Suspense fallback={<div></div>}>
-          <Header
-            isNightMode={isNightMode}
-            setIsNightMode={this.setIsNightMode}
-          />
+          <Header />
         </Suspense>
         <Switch>
           <Route path="/" exact>
@@ -101,10 +75,6 @@ class App extends Component<PropsFromRedux, StateI> {
       </div>
     );
   }
-}
-
-interface StateI {
-  isNightMode: boolean;
 }
 
 const mapStateToProps = (store: StoreInterface) => ({

@@ -4,17 +4,13 @@ import { StoreInterface } from "../../storage/store";
 import CustomSelect from "../select";
 import { getSelectedCurrency } from "../../storage/HomePage/action";
 import { SelectedCurrencyI } from "../../utils/dataInterfaces";
-import "./style.css";
 import { Link } from "react-router-dom";
+import Mode from "./Mode";
+import "./style.css";
 
 const Header: React.FC<Props> = (props) => {
-  const {
-    setIsNightMode,
-    getAllCurrenciesData,
-    isNightMode,
-    getSelectedCurrencydata,
-    getSelectedCurrency,
-  } = props;
+  const { getAllCurrenciesData, getSelectedCurrencydata, getSelectedCurrency } =
+    props;
   const [currentCurrency, setCurrentCurrency] = useState<
     Partial<SelectedCurrencyI> | undefined
   >({});
@@ -39,20 +35,14 @@ const Header: React.FC<Props> = (props) => {
             onChange={handleChange}
             currentCurrency={currentCurrency}
           />
-          <i
-            onClick={setIsNightMode}
-            className={`fas fa-${isNightMode ? "moon" : "sun"}`}
-          ></i>
+          <Mode />
         </div>
       </div>
     </div>
   );
 };
 
-interface Props extends PropsFromRedux {
-  isNightMode: boolean;
-  setIsNightMode: () => void;
-}
+interface Props extends PropsFromRedux {}
 
 const mapStateToProps = (store: StoreInterface) => ({
   getAllCurrenciesData: store?.homePage?.getAllCurrencies?.data,
