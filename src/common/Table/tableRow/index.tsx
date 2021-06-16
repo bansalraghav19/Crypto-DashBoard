@@ -25,9 +25,11 @@ const TableRow: React.FC<PropsI> = (props) => {
           className="tc1Row"
           key={row?.uuid}
         >
-          {dataColumns?.map((field: tableColumnI, index: number) => (
-            <td className="tc1RowData" key={index}>
-              <div className={`tc1RowDataBox tc1cell${field.key}`}>
+          {dataColumns?.map((field: tableColumnI) => (
+            <td className="tc1RowData" key={field.key}>
+              <div
+                className={`tc1RowDataBox fadeInUpTable tc1cell${field.key}`}
+              >
                 <Cell column={field} row={row} />
               </div>
             </td>

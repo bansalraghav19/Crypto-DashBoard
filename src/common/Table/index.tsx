@@ -22,7 +22,7 @@ interface PropsI {
 
 const Table: React.FC<PropsI> = (props) => {
   const [tableData, setTableData] = useState<any>([]);
-  const [curSortingParameter, setCurSortingParameter] = useState("");
+  const [curSortingParameter, setCurSortingParameter] = useState("rank");
   const [isAscendingSort, setIsAscendingSort] = useState(true);
 
   const { dataColumns, data, clickable } = props;
@@ -46,7 +46,6 @@ const Table: React.FC<PropsI> = (props) => {
         field?.key,
         isIncreasing
       );
-      console.log(sortedData);
       setTableData(sortedData);
     },
     [curSortingParameter, isAscendingSort, tableData]

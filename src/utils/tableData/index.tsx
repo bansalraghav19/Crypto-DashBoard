@@ -20,7 +20,7 @@ export const homePageTableColumns = [
     render: (row: HomePageTableInterface) => (
       <>
         <span className="mr-10">
-          <img src={row?.iconUrl} />
+          <img src={row?.iconUrl} alt="logo" />
         </span>
         <span className="mr-5">{row?.name}</span>
         <span> {`(${row?.symbol})`}</span>
@@ -120,7 +120,7 @@ export const coinPageTableColumns = [
     render: (row: CoinPageTableInterface) => (
       <>
         <span className="mr-10">
-          <img src={row?.exchange?.iconUrl} />
+          <img src={row?.exchange?.iconUrl} alt="logo" />
         </span>
         <span className="mr-5">{row?.exchange?.name}</span>
       </>
@@ -169,7 +169,6 @@ export const coinPageTableColumns = [
     key: "price",
     name: "Price",
     render: (row: CoinPageTableInterface, currency: string) => {
-      const delta = numberToWords(row?.change);
       return (
         <div>
           <div>

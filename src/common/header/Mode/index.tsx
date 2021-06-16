@@ -1,27 +1,28 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   getLocalStorageValue,
   setLocalStorageValue,
 } from "../../../utils/localStorage";
 import { lightTheme, darkTheme } from "../../../utils/colors";
+import { useCallback } from "react";
 
 const Mode = () => {
   const [isNightMode, setIsNightMode] = useState(false);
   const [iconName, setIconName] = useState("fas fa-sun");
 
-  useLayoutEffect(() => {
-    checkBackgroundMode();
-  }, []);
-
-  const checkBackgroundMode = () => {
+  const checkBackgroundMode = useCallback(() => {
     const storedValue: { isStored: boolean; data?: any } =
       getLocalStorageValue("isNightMode");
     const defaultMode = Boolean(storedValue.data);
-    applyStyles(defaultMode);
     if (defaultMode) {
       document.querySelector(".App")?.classList.add("night");
     }
-  };
+    applyStyles(defaultMode);
+  }, []);
+
+  useLayoutEffect(() => {
+    checkBackgroundMode();
+  }, [checkBackgroundMode]);
 
   const handleModeChange = () => {
     const newMode = !isNightMode;

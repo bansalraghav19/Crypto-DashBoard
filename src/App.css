@@ -40,6 +40,10 @@ body {
   min-height: 100vh;
 }
 
+.App.night {
+  background: #161625;
+}
+
 .mt-10 {
   margin-top: 10px;
 }
