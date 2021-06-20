@@ -5,6 +5,7 @@ const instance = axios.create({
   headers: {
     "x-access-token":
       "coinranking5714c4e757c60c495bcc48c4b16affded376bcd126946433",
+    "Access-Control-Allow-Origin": "https://cdashboard.netlify.app/",
   },
 });
 
