@@ -2,10 +2,10 @@ import axios, { AxiosRequestConfig } from "axios";
 
 const instance = axios.create({
   baseURL: "https://api.coinranking.com/v2/",
-  // headers: {
-  //   "x-access-token":
-  //     "coinranking9284523369215d6f4b74a2632660311de6513752eed650ed",
-  // },
+  headers: {
+    "x-access-token":
+      "coinranking5714c4e757c60c495bcc48c4b16affded376bcd126946433",
+  },
 });
 
 const useAxios = (
